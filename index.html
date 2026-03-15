@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phishing Website Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <!-- Plotly.js CDN for pie chart -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Phishing Website Detection</h1>
+        
+        <!-- URL Checking Form -->
+        <form action="/check" method="POST">
+            <label for="url">Enter URL to Check:</label>
+            <input type="text" id="url" name="url" required>
+            <button type="submit">Check</button>
+        </form>
+
+        <!-- Display the Result of URL Check -->
+        {% if result %}
+        <div class="result">
+            <h2 >Result for: <a href="{{ url }}" target="_blank"> {{ url[:25] }}{% if url|length > 25 %}...{% endif %}</a></h2>
+            <p><strong>Status:</strong> {{ result }}</p>
+        </div>
+        {% endif %}
+
+        <!-- Display the Pie Chart of Phishing vs Legitimate URLs -->
+        <h3>Phishing vs Legitimate URLs (Dataset Distribution)</h3>
+        <div>
+            <!-- The pie chart will be injected here -->
+            {{ pie_chart | safe }}
+        </div>
+
+    </div>
+
+
+   
+</body>
+</html>
